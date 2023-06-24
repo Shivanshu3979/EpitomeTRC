@@ -1,12 +1,15 @@
-import './App.css';
 import React from "react";
 
 import { Entry } from './page/entry/entry.page';
+import {DefaultLayout} from './component/layout/DefaultLayout';
 
 function App() {
   return (
     <div className="App">
-      <Entry/>
+      <DefaultLayout>
+          <Entry/>
+      </DefaultLayout>
+      {/*<Entry/>*/}
     </div>
   );
 }
