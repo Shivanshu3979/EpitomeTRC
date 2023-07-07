@@ -1,6 +1,7 @@
 import React from 'react'
 import {Table} from 'react-bootstrap'
 export const TicketTable=({tickets})=>{
+    if(tickets.length)
     return(
         <Table striped bordered hover>
             <thead>
