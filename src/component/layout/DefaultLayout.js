@@ -3,6 +3,7 @@ import React from "react";
 import "../../App.css";
 import {Header} from './partial/Header.comp';
 import {Footer} from './partial/Footer.com';
+import { Outlet } from "react-router";
 
 export const DefaultLayout=({children})=>{
     return(
@@ -18,6 +19,7 @@ export const DefaultLayout=({children})=>{
                 <Footer/>
             </div>
             </div>
+            
         </div>
     )
 }

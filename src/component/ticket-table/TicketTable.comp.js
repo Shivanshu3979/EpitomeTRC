@@ -1,5 +1,6 @@
 import React from 'react'
 import {Table} from 'react-bootstrap'
+import { Link } from 'react-router-dom'
 export const TicketTable=({tickets})=>{
     if(tickets.length)
     return(
@@ -20,15 +21,15 @@ export const TicketTable=({tickets})=>{
             <tbody>
                 {tickets.length ? tickets.map(row=>(
                 <tr key={row.id}>
-                    <th>{row.id}</th>
-                    <th>{row.customerName}</th>
-                    <th>{row.customerEmail}</th>
-                    <th>{row.subject}</th>
-                    <th>{row.description}</th>
-                    <th>{row.assignedTo}</th>
-                    <th>{row.status}</th>
-                    <th>{row.createdAt}</th>
-                    <th>{row.updatedAt}</th>
+                    <td>{row.id}</td>
+                    <td><Link to={`/ticket/${row.id}`}>{row.subject}</Link></td>
+                    <td>{row.customerName}</td>
+                    <td>{row.customerEmail}</td>
+                    <td>{row.description}</td>
+                    <td>{row.assignedTo}</td>
+                    <td>{row.status}</td>
+                    <td>{row.createdAt}</td>
+                    <td>{row.updatedAt}</td>
                 </tr>)) : (
                 <tr>
                     <td colSpan={4} className='text-center'>No tickets to show</td>

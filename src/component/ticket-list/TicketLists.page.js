@@ -5,6 +5,7 @@ import { SearchForm } from '../search-form/SearchForm.comp';
 import { TicketTable } from '../ticket-table/TicketTable.comp';
 import tickets from "../../assets/data/dummy-tickets.json"
 import {PropTypes} from 'prop-types'
+import { Link } from 'react-router-dom';
 
 export const TicketLists=()=>{
     const [str,setStr]=useState('')
@@ -31,7 +32,9 @@ export const TicketLists=()=>{
             </Row>
             <Row className='mt-4'>
                 <Col>
+                <Link to="/add-ticket">
                 <Button variant="info">Add New Tickets</Button>
+                </Link>
                 </Col>
                 <Col className='text-right'>
                     <SearchForm 
