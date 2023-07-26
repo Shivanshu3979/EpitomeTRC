@@ -1,34 +1,36 @@
 import React from 'react'
+import {useSelector } from 'react-redux';
 import {Table} from 'react-bootstrap'
 import { Link } from 'react-router-dom'
-export const TicketTable=({tickets})=>{
-    if(tickets.length)
+export const TicketTable=()=>{
+    const {searchTicketList, isLoading, error}=useSelector(state=>state.tickets);
+    if(isLoading) return <h3>Loading...</h3>;
+    if(error) return <h3>{error}</h3>;
+    if(searchTicketList.length)
     return(
         <Table striped bordered hover>
             <thead>
                 <tr>
                     <th>#</th>
+                    <th>Subject</th>
                     <th>Customer Name</th>
                     <th>Customer Email</th>
-                    <th>Subject</th>
                     <th>Description</th>
-                    <th>assignedTo</th>
                     <th>Status</th>
                     <th>Created At</th>
                     <th>Updated At</th>
                 </tr>
             </thead>
             <tbody>
-                {tickets.length ? tickets.map(row=>(
-                <tr key={row.id}>
-                    <td>{row.id}</td>
+                {searchTicketList.length ? searchTicketList.map(row=>(
+                <tr key={row._id}>
+                    <td>{row._id}</td>
                     <td><Link to={`/ticket/${row.id}`}>{row.subject}</Link></td>
-                    <td>{row.customerName}</td>
-                    <td>{row.customerEmail}</td>
-                    <td>{row.description}</td>
-                    <td>{row.assignedTo}</td>
+                    <td>{row.name}</td>
+                    <td>{row.email}</td>
+                    <td>{row.conversations[0].message}</td>
                     <td>{row.status}</td>
-                    <td>{row.createdAt}</td>
+                    <td>{row.openAt}</td>
                     <td>{row.updatedAt}</td>
                 </tr>)) : (
                 <tr>

@@ -1,28 +1,20 @@
-import React, { useState,useEffect } from 'react';
+import React, {useEffect } from 'react';
+import {useDispatch} from 'react-redux';
+import {fetchAllTickets} from './ticketAction';
+
 import {Container, Row,Col, Button} from "react-bootstrap";
 import { PageBreadcrumb } from '../breadcrumb/Breadcrumb.comp';
 import { SearchForm } from '../search-form/SearchForm.comp';
 import { TicketTable } from '../ticket-table/TicketTable.comp';
-import tickets from "../../assets/data/dummy-tickets.json"
-import {PropTypes} from 'prop-types'
 import { Link } from 'react-router-dom';
 
 export const TicketLists=()=>{
-    const [str,setStr]=useState('')
-    const [dispTicket,setDispTicket]=useState(tickets)
-    useEffect(()=>{},[str,dispTicket]);
+    const dispatch=useDispatch();
 
-    const handleOnChange=(e)=>{
-        const {value} = e.target;
-        setStr(value);
-        searchTicket(value);
-    };
-
-    const searchTicket = sttr =>{
-        const displayTickets=tickets.filter(row=>row.subject.toLowerCase().includes(sttr.toLowerCase()));
-        setDispTicket(displayTickets);
-    };
-
+    useEffect(()=>{
+        dispatch(fetchAllTickets())
+    },[dispatch]);
+    
     return(
         <Container>
             <Row>
@@ -37,21 +29,16 @@ export const TicketLists=()=>{
                 </Link>
                 </Col>
                 <Col className='text-right'>
-                    <SearchForm 
-                        handleOnChange={handleOnChange}
-                        str={str}/>
+                    <SearchForm />
                 </Col>
             </Row>
             <hr/>
             <Row>
                 <Col>
-                <TicketTable tickets={dispTicket}/>
+                <TicketTable/>
                 </Col>
             </Row>
         </Container>
     )
 }
 
-TicketTable.propTypes={
-    tickets:PropTypes.array.isRequired
-}

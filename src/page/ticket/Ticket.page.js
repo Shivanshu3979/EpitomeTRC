@@ -6,7 +6,7 @@ import { MessageHistory } from "../../component/message-history/MessageHistory.c
 import { UpdateTicket } from "../../component/update-ticket/UpdateTicket.comp";
 import { useParams } from "react-router-dom";
 
-const ticket=tickets[0]
+
 export const Ticket = () =>{
     const {tid} = useParams()
     const [message, setMessage]=useState('');
@@ -14,7 +14,7 @@ export const Ticket = () =>{
 
     useEffect(()=>{
         for(let i=0;i<tickets.length;i++){
-            if(tickets[i].id==tid){
+            if(tickets[i].id===tid){
                 setTicket(tickets[i])
                 continue
             }
