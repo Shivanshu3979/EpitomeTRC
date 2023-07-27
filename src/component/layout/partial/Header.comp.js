@@ -7,7 +7,8 @@ import { LinkContainer } from 'react-router-bootstrap'
 export const Header=()=>{
     const history = useNavigate();
     const logMeOut = () =>{
-        history.push("/");
+        sessionStorage.removeItem("accessJWT");
+        history("/");
     }
     return(
         <Navbar

@@ -1,5 +1,28 @@
 import axios from 'axios';
-const loginUrl='http://localhost:3001/v1/user/login'
+const route="http://localhost:3001/v1/"
+const loginUrl=route+'user/login';
+const userprofile=route+'user';
+const logoutUrl=route+"user/logout"
+
+export const fetchUser=frmData=>{
+    return new Promise(async(resolve,reject)=>{
+        try {
+            const accessJWT=sessionStorage.getItem('accessJWT')
+            if(!accessJWT){
+                reject("session Expired or token doesn't exist");
+            }
+            const res=await axios.get(userprofile,{
+                headers:{
+                    Authorization:accessJWT,
+                }
+            })
+            resolve(res.data);
+        } catch (error) {
+            reject(error.message);
+        }
+    })
+}
+
 export const userLogin=frmData=>{
     return new Promise(async(resolve,reject)=>{
         try {
@@ -13,4 +36,16 @@ export const userLogin=frmData=>{
             reject(error);
         }
     })
+};
+
+export const userLogout=async()=>{
+    try {
+        await axios.delete(logoutUrl,{
+            headers:{
+                Authorization:sessionStorage.getItem("accessJWT")
+            }
+        })
+    } catch (error) {
+        console.log(error);
+    }
 }

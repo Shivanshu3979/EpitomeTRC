@@ -6,6 +6,7 @@ import { loginFail,loginSuccess,loginPending } from './loginSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import {userLogin} from "../../api/userApi";
 import {useNavigate} from "react-router-dom";
+import { getUserProfile } from '../../page/dashboard/userAction';
 
 export const LoginForm=({
     formSwitcher,
@@ -46,6 +47,7 @@ export const LoginForm=({
                     return dispatch(loginFail(isAuth.message));
                 }
                 dispatch(loginSuccess());
+                dispatch(getUserProfile());
                 history("/dashboard");
             } catch (error) {
                 dispatch(loginFail(error.message));
