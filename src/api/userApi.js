@@ -3,7 +3,34 @@ const route="http://localhost:3001/v1/"
 const loginUrl=route+'user/login';
 const userprofile=route+'user';
 const logoutUrl=route+"user/logout"
+const newAccessJWTurl=route+"token"
 
+export const fetchNewAccessJWT=frmData=>{
+    return new Promise(async(resolve,reject)=>{
+        try {
+            const {refreshJWT}=JSON.parse(localStorage.getItem('crmSite'))
+            
+            if(!refreshJWT){
+                reject("session Expired or token doesn't exist");
+            }
+            const res=await axios.get(newAccessJWTurl,{
+                headers:{
+                    Authorization:refreshJWT,
+                },
+            });
+            if(res.data.status==="success"){
+                sessionStorage.setItem('accessJWT', res.data.accessJWT);
+                localStorage.setItem('crmSite',JSON.stringify({refreshJWT:res.data.refreshJWT}));
+            }
+            resolve(true);
+        } catch (error) {
+            if(error.message==="Request failed with status code 403"){
+                localStorage.removeItem("crmSite");
+            }
+            reject(false);
+        }
+    })
+}
 export const fetchUser=frmData=>{
     return new Promise(async(resolve,reject)=>{
         try {
