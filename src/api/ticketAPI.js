@@ -6,7 +6,7 @@ export const getAlltickets=()=>{
             const result=await axios.get(
                 'http://localhost:3001/v1/ticket',{
                     headers:{
-                        Authorization: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3QtdXNlci0yIiwiaWF0IjoxNjkwMzMyMjE5LCJleHAiOjE2OTA0MTg2MTl9.ILIUgcUKFa1vtXNHEUuJd4Kwkp6U20pU_4hkrQJwrlw'
+                        Authorization: sessionStorage.getItem("accessJWT")
                     }
                 }
             );
@@ -15,4 +15,61 @@ export const getAlltickets=()=>{
             reject(error);
         }
     });
+}
+
+export const updateReplyTicket=(_id,msg)=>{
+    const uri='http://localhost:3001/v1/ticket/'+_id;
+    return new Promise(async(resolve, reject)=>{
+        try {
+            const result=await axios.put(
+                uri,msg,{
+                    headers:{
+                        Authorization: sessionStorage.getItem("accessJWT")
+                    }
+                }
+            );
+            
+            resolve(result.data);
+        } catch (error) {
+            console.log(error.message);
+            reject(error);
+        }
+    })
+}
+
+export const getSingleTicket = (_id) => {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const result = await axios.get("http://localhost:3001/v1/ticket/" + _id, {
+          headers: {
+            Authorization: sessionStorage.getItem("accessJWT"),
+          },
+        });
+  
+        resolve(result);
+      } catch (error) {
+        console.log(error.message);
+        reject(error);
+      }
+    });
+  };
+
+export const closeTicket=(_id,msg)=>{
+    const uri='http://localhost:3001/v1/ticket/close-ticket/'+_id;
+    return new Promise(async(resolve, reject)=>{
+        try {
+            const result=await axios.patch(
+                uri,{},{
+                    headers:{
+                        Authorization: sessionStorage.getItem("accessJWT")
+                    }
+                }
+            );
+            
+            resolve(result.data);
+        } catch (error) {
+            console.log(error.message);
+            reject(error);
+        }
+    })
 }

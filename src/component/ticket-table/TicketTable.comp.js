@@ -25,13 +25,13 @@ export const TicketTable=()=>{
                 {searchTicketList.length ? searchTicketList.map(row=>(
                 <tr key={row._id}>
                     <td>{row._id}</td>
-                    <td><Link to={`/ticket/${row.id}`}>{row.subject}</Link></td>
+                    <td><Link to={`/ticket/${row._id}`}>{row.subject}</Link></td>
                     <td>{row.name}</td>
                     <td>{row.email}</td>
                     <td>{row.conversations[0].message}</td>
                     <td>{row.status}</td>
-                    <td>{row.openAt}</td>
-                    <td>{row.updatedAt}</td>
+                    <td>{new Date(row.openAt).toLocaleString()}</td>
+                    <td>{new Date(row.updatedAt).toLocaleString()}</td>
                 </tr>)) : (
                 <tr>
                     <td colSpan={4} className='text-center'>No tickets to show</td>

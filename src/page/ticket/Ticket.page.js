@@ -1,32 +1,33 @@
 import React, { useEffect, useState } from "react";
-import { Container,Row, Col, Button } from "react-bootstrap";
+import { Container,Row, Col, Button, Alert } from "react-bootstrap";
 import { PageBreadcrumb } from "../../component/breadcrumb/Breadcrumb.comp";
-import tickets from "../../assets/data/dummy-tickets.json"
 import { MessageHistory } from "../../component/message-history/MessageHistory.comp";
 import { UpdateTicket } from "../../component/update-ticket/UpdateTicket.comp";
 import { useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { helperCloseTicket } from "../../component/ticket-list/ticketAction";
 
 
 export const Ticket = () =>{
     const {tid} = useParams()
-    const [message, setMessage]=useState('');
+    const {replyMsg}=useSelector(state=>state.tickets);
+    const dispatch=useDispatch();
     const [ticket, setTicket]=useState('');
-
+    const {searchTicketList}=useSelector(state=>state.tickets);
+    
     useEffect(()=>{
-        for(let i=0;i<tickets.length;i++){
-            if(tickets[i].id===tid){
-                setTicket(tickets[i])
+        for(let i=0;i<searchTicketList.length;i++){
+            if(searchTicketList[i]._id===tid){
+                setTicket(searchTicketList[i])
                 continue
             }
         }
-    },[message])
-    const handleOnChange=(e)=>{
-        setMessage(e.target.value);
-    }
-    const handleOnSubmit=(e)=>{
-        setMessage(e.target.value);
-    }
+    },[tid,searchTicketList])
+
     return(
+        <div>
+            
+        
         <Container>
             <Row>
                 <Col>
@@ -36,30 +37,31 @@ export const Ticket = () =>{
             <Row>
                 <Col className="text-weight-bolder text-secondary">
                     {tid}
-                <div className="subject">Subject: {ticket.subject}</div>
-                <div className="Customer Name">Customer Name: {ticket.customerName}</div>
-                <div className="Customer Email">Customer Email: {ticket.customerEmail}</div>
-                <div className="date">Date of Creation: {ticket.createdAt}</div>
-                <div className="assigned To">Assigned To: {ticket.assignedTo}</div>
-                <div className="status">Status: {ticket.status}</div>
+                <div className="subject"><b>Subject:</b> {ticket.subject}</div>
+                <div className="Customer Name"><b>Customer Name:</b> {ticket.name}</div>
+                <div className="Customer Email"><b>Customer Email:</b> {ticket.email}</div>
+                <div className="date"><b>Date of Creation:</b> {new Date(ticket.openAt).toLocaleString()}</div>
+                <div className="status"><b>Status:</b> {ticket.status}</div>
                 </Col>
                 <Col className="text-right">
-                <Button variant="outline-info">Close Ticket</Button>
+                <Button variant="outline-info" 
+                onClick={()=>{dispatch(helperCloseTicket(tid))}}
+                disabled={ticket.status==="Closed"}>Close Ticket</Button>
                 </Col>
             </Row>
+            {replyMsg && <Alert variant='success'>{replyMsg}</Alert>}
             <Row className="mt-4">
-                <Col>{ticket.history && <MessageHistory msg={ticket.history}/>}
+                <Col>{ticket.conversations && <MessageHistory msg={ticket.conversations}/>}
                     
                 </Col>
             </Row>
             <Row className="mt-4">
                 <Col>
-                    <UpdateTicket 
-                    msg={message}
-                    handleOnChange={handleOnChange}
-                    handleOnSubmit={handleOnSubmit}/>
+                    <UpdateTicket tid={tid}
+                    />
                 </Col>
             </Row>
         </Container>
+        </div>
     )
 } 

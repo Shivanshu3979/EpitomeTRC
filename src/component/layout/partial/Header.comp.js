@@ -10,7 +10,7 @@ export const Header=()=>{
     const logMeOut = () =>{
         sessionStorage.removeItem("accessJWT");
         localStorage.removeItem("crmSite");
-        userLogout();
+        userLogout(); 
         history("/");
     }
     return(
