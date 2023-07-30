@@ -21,6 +21,7 @@ export const fetchAllTickets=()=>async(dispatch)=>{
     dispatch(fetchTicketLoading());
     try {
         const result=await getAlltickets();
+        console.log(result);
         dispatch(fetchTicketSuccess(result.data.result));
     } catch (error) {
         dispatch(fetchTicketFail(error))

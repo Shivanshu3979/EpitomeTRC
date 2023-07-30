@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { openNewTicket } from "./addTicketActions";
 import { shortText } from "../../utils/validation";
 import { openNewTicketSucceed } from "./addTicketSlicer";
+import { fetchAllTickets } from "../ticket-list/ticketAction";
 
 const initialFrmDt ={
     name:"",
@@ -32,7 +33,7 @@ export const AddTicketForm=()=>{
     
     useEffect(()=>{
         return ()=>{
-            successMsg && dispatch(openNewTicketSucceed())
+            successMsg && dispatch(openNewTicketSucceed()) && dispatch(fetchAllTickets())
         }
     },[dispatch,frmData,frmDataError]);
 

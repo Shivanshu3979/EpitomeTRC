@@ -4,6 +4,37 @@ const loginUrl=route+'user/login';
 const userprofile=route+'user';
 const logoutUrl=route+"user/logout"
 const newAccessJWTurl=route+"token"
+const userVerificationUrl = userprofile + "/verify";
+
+export const userRegistration = (frmData) => {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const res = await axios.post(userprofile, frmData);
+  
+        resolve(res.data);
+  
+        if (res.data.status === "success") {
+          resolve(res.data);
+        }
+      } catch (error) {
+        reject(error);
+      }
+    });
+  };
+  export const userRegistrationVerification = (frmData) => {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const res = await axios.patch(userVerificationUrl, frmData);
+  
+        resolve(res.data);
+        if (res.data.status === "success") {
+          resolve(res.data);
+        }
+      } catch (error) {
+        reject({ status: "error", message: error.error });
+      }
+    });
+  };
 
 export const fetchNewAccessJWT=frmData=>{
     return new Promise(async(resolve,reject)=>{

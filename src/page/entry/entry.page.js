@@ -7,7 +7,10 @@ import {ResetPassword} from "../../component/login/ResetPassword.comp";
 export const Entry=()=>{
     const [frmLoad, setFrmLoad]=useState("login");
 
-    
+    const handleOnResetSubmit = e => {
+		e.preventDefault();
+	};
+
     const formSwitcher = frmType =>{
         setFrmLoad(frmType);
     }
@@ -19,6 +22,7 @@ export const Entry=()=>{
                 formSwitcher={formSwitcher}/>)}
                 
                 {frmLoad === 'rest' && (<ResetPassword 
+                handleOnResetSubmit={handleOnResetSubmit}
                 formSwitcher={formSwitcher}
                 //email={email}
                 />

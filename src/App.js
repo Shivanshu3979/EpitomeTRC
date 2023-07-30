@@ -8,6 +8,8 @@ import { AddTicket } from "./page/new-ticket/AddTicket.page";
 import { TicketLists } from "./component/ticket-list/TicketLists.page";
 import { Ticket } from "./page/ticket/Ticket.page";
 import { PrivateRoute } from "./component/private-route/PrivateRoute.comp";
+import { PasswordOtpForm } from "./component/login/passwordOTPForm.page";
+import { Registration } from "./page/registration/registration.form";
 
 function App() {
   return (
@@ -15,6 +17,8 @@ function App() {
       <Router>
         <Routes>
           <Route path="/" element={<Entry />} />
+          <Route path="/Register" element={<Registration />} />
+          <Route path="/password-reset" element={<PasswordOtpForm />} />
           <Route element={<PrivateRoute />}>
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/add-ticket" element={<AddTicket />} />

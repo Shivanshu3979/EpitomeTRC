@@ -24,7 +24,7 @@ export const ResetPassword=({handleOnChange, handleOnSubmit,formSwitcher, email}
                             required
                             />
                         </Form.Group>
-                        <Button type="Submit">Login</Button>
+                        <Button type="Submit" className='mt-2'>Reset</Button>
                     </Form>
                     <hr/>
                     </Col>
@@ -32,7 +32,7 @@ export const ResetPassword=({handleOnChange, handleOnSubmit,formSwitcher, email}
 
                 <Row>
                     <Col>
-                        <a href="#" onClick={()=>formSwitcher('login')}>Forget Password?</a>
+                        <a href="#" onClick={()=>formSwitcher('login')}>Login Now?</a>
                     </Col>
                 </Row>
             </Container>
