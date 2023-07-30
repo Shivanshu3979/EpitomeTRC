@@ -5,12 +5,17 @@ import { MessageHistory } from "../../component/message-history/MessageHistory.c
 import { UpdateTicket } from "../../component/update-ticket/UpdateTicket.comp";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { helperCloseTicket } from "../../component/ticket-list/ticketAction";
+import { fetchSingleTicket, helperCloseTicket } from "../../component/ticket-list/ticketAction";
+import { replyTicketSucceed } from "../../component/ticket-list/ticketSlice";
 
 
 export const Ticket = () =>{
     const {tid} = useParams()
-    const {replyMsg}=useSelector(state=>state.tickets);
+    const {isLoading,
+        error,
+        seletedTicket,
+        replyMsg,
+        replyTicketError}=useSelector(state=>state.tickets);
     const dispatch=useDispatch();
     const [ticket, setTicket]=useState('');
     const {searchTicketList}=useSelector(state=>state.tickets);
@@ -23,7 +28,12 @@ export const Ticket = () =>{
             }
         }
     },[tid,searchTicketList])
-
+    useEffect(()=>{
+        dispatch(fetchSingleTicket(tid));
+        return ()=>{
+            (replyMsg || replyTicketError) && dispatch(replyTicketSucceed());
+        }
+    },[dispatch,tid,replyMsg,replyTicketError])
     return(
         <div>
             
@@ -50,6 +60,7 @@ export const Ticket = () =>{
                 </Col>
             </Row>
             {replyMsg && <Alert variant='success'>{replyMsg}</Alert>}
+            {replyTicketError && <Alert variant='danger'>{replyTicketError}</Alert>}
             <Row className="mt-4">
                 <Col>{ticket.conversations && <MessageHistory msg={ticket.conversations}/>}
                     

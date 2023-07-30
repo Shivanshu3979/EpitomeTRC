@@ -3,6 +3,7 @@ import {Form, Button, Row, Col, Alert, Spinner} from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { openNewTicket } from "./addTicketActions";
 import { shortText } from "../../utils/validation";
+import { openNewTicketSucceed } from "./addTicketSlicer";
 
 const initialFrmDt ={
     name:"",
@@ -23,13 +24,17 @@ export const AddTicketForm=()=>{
     const dispatch=useDispatch();
     const [frmData,setFrmData]=useState(initialFrmDt)
 
-    const {isLoading, error, successMsg}=useSelector(
+    const {isLoading, error, successMsg,succeed}=useSelector(
         (state)=>state.openTicket
     )
     const [frmDataError,setFrmDataError]=useState(initialFrmError)
     const user=useSelector(state=>state.user.user);
     
-    useEffect(()=>{},[frmData,frmDataError]);
+    useEffect(()=>{
+        return ()=>{
+            successMsg && dispatch(openNewTicketSucceed())
+        }
+    },[dispatch,frmData,frmDataError]);
 
     const handleOnChange=(e,text)=>{
         const {name, value}=e.target;
@@ -65,7 +70,7 @@ export const AddTicketForm=()=>{
                             <Form.Control 
                             name="name"
                             minLength="3"
-                            value={null}
+                            value={undefined}
                             onChange={handleOnChange}
                             placeholder="Enter Name"
                             required
@@ -79,7 +84,7 @@ export const AddTicketForm=()=>{
                             type="email"
                             minLength="3"
                             name="email"
-                            value={null}
+                            value={undefined}
                             onChange={handleOnChange}
                             placeholder="Enter Email"
                             required
@@ -93,7 +98,7 @@ export const AddTicketForm=()=>{
                             type="text"
                             minLength="3"
                             name="subject"
-                            value={null}
+                            value={undefined}
                             onChange={handleOnChange}
                             placeholder="Subject"
                             required
@@ -107,7 +112,7 @@ export const AddTicketForm=()=>{
                             minLength="3"
                             name="message"
                             rows="5"
-                            value={null}
+                            value={undefined}
                             onChange={handleOnChange}
                             placeholder="Description"
                             required

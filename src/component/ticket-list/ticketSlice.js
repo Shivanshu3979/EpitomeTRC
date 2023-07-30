@@ -32,6 +32,12 @@ const ticketListSlice = createSlice({
         state.isLoading = false;
         state.replyMsg=payload;
       },
+      replyTicketSucceed: (state) => {
+        state.error="";
+        state.isLoading = false;
+        state.replyMsg="";
+      },
+
       replyTicketFail: (state, { payload }) => { // Fix the parameter name here
         state.isLoading = false;
         state.error = payload;
@@ -80,6 +86,7 @@ export const {
     replyTicketFail,
     replyTicketLoading,
     replyTicketSuccess,
+    replyTicketSucceed,
     closeTicketFail,
     closeTicketLoading,
     closeTicketSuccess,
