@@ -3,7 +3,7 @@ import {Form, Button} from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux';
 import { replyOnTicket } from '../ticket-list/ticketAction';
 
-export const UpdateTicket=({tid})=>{
+export const UpdateTicket=({tid,status})=>{
     const dispatch=useDispatch();
     const {user:{name}} = useSelector(state=>state.user)
     const [message, setMessage]=useState('');
@@ -32,7 +32,8 @@ export const UpdateTicket=({tid})=>{
             row="5" 
             name="detail"/>
             <div className='text-right mt-3 mb-3'>
-                <Button variant="info" type="submit">
+                <Button variant="info" type="submit"
+                disabled={status==="Closed"}>
                     Reply
                 </Button>
             </div>

@@ -49,8 +49,9 @@ export const replyOnTicket=(_id,msg)=>async(dispatch)=>{
     dispatch(replyTicketLoading);
     try {
         const result=await updateReplyTicket(_id,msg);
+        console.log(result)
         dispatch(fetchSingleTicket(_id));
-        dispatch(replyTicketSuccess(result.status));
+        dispatch(replyTicketSuccess(result.message));
     } catch (error) {
         dispatch(replyTicketFail(error.message));
     }
@@ -64,7 +65,7 @@ export const helperCloseTicket=(_id)=>async(dispatch)=>{
             return dispatch(closeTicketFail(result.message));
         }
         dispatch(fetchSingleTicket(_id));
-        dispatch(closeTicketSuccess(result.status));
+        dispatch(closeTicketSuccess(result.message));
     } catch (error) {
         dispatch(closeTicketFail(error.message));
     }

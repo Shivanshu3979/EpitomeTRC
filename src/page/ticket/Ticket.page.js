@@ -57,7 +57,9 @@ export const Ticket = () =>{
             </Row>
             <Row className="mt-4">
                 <Col>
-                    <UpdateTicket tid={tid}
+                    <UpdateTicket 
+                    tid={tid}
+                    status={ticket.status}
                     />
                 </Col>
             </Row>
