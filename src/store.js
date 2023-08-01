@@ -5,6 +5,7 @@ import userReducer from './page/dashboard/userSlice';
 import newTicketReducer from './component/add-ticket-form/addTicketSlicer'
 import registrationReducer from "./component/registration-form/userRegestrationSlice";
 import passwordReducer from "./component/password-reset/passwordSlice";
+import hiringReducer from "./component/hiring-list/hiringtSlice";
 
 const store=configureStore({
     reducer:{
@@ -14,6 +15,7 @@ const store=configureStore({
         openTicket:newTicketReducer,
         registration: registrationReducer,
 		password: passwordReducer,
+        hiring:hiringReducer,
     },
 });
 export default store;

@@ -10,6 +10,9 @@ import { Ticket } from "./page/ticket/Ticket.page";
 import { PrivateRoute } from "./component/private-route/PrivateRoute.comp";
 import { PasswordOtpForm } from "./component/login/passwordOTPForm.page";
 import { Registration } from "./page/registration/registration.form";
+import { HiringLists } from "./component/hiring-list/HiringLists.page";
+import { AddCandidate } from "./page/new-Candidate/AddCandidate.page";
+import { Candidate } from "./page/candidate/Candidate.page";
 
 function App() {
   return (
@@ -21,6 +24,9 @@ function App() {
           <Route path="/password-reset" element={<PasswordOtpForm />} />
           <Route element={<PrivateRoute />}>
             <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/hiring" element={<HiringLists /> /*todo*/} />
+            <Route path="/hirings/:tid" element={<Candidate /> /*todo*/} />
+            <Route path="/add-candidate" element={<AddCandidate /> /*todo*/} />
             <Route path="/add-ticket" element={<AddTicket />} />
             <Route path="/tickets" element={<TicketLists />} />
             <Route path="/ticket/:tid" element={<Ticket />} />

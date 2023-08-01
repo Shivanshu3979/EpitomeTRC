@@ -25,6 +25,7 @@ export const Header=()=>{
             <Navbar.Collapse id='basic-navbar-nav'>
                 <Nav className='ml-auto'>
                     <LinkContainer to="/dashboard"><Nav.Link >Dashboard</Nav.Link></LinkContainer>
+                    <LinkContainer to="/hiring"><Nav.Link >Hiring</Nav.Link></LinkContainer>
                     <LinkContainer to="/tickets"><Nav.Link >Tickets</Nav.Link></LinkContainer>
                     <LinkContainer to="" onClick={logMeOut}><Nav.Link >Logout</Nav.Link></LinkContainer>
                 </Nav>

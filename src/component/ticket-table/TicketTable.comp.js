@@ -28,7 +28,7 @@ export const TicketTable=()=>{
                     <td><Link to={`/ticket/${row._id}`}>{row.subject}</Link></td>
                     <td>{row.name}</td>
                     <td>{row.email}</td>
-                    <td>{row.conversations[0].message}</td>
+                    <td>{row.conversations && row.conversations[0].message}</td>
                     <td>{row.status}</td>
                     <td>{new Date(row.openAt).toLocaleString()}</td>
                     <td>{new Date(row.updatedAt).toLocaleString()}</td>
